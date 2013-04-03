@@ -1,7 +1,7 @@
 class Question < ActiveRecord::Base
   attr_accessible :poll_id, :body
 
-  has_many :allowed_answers
+  has_many :allowed_answers, :dependent => :destroy
   #SQL: SELECT allowed_answers.*
   # =>    FROM allowed_answers
   # =>   WHERE allowed_answers.question_id = ?, ? = self.id
@@ -17,6 +17,11 @@ class Question < ActiveRecord::Base
   # SQL: SELECT polls
   # =>     FROM polls
   # =>    WHERE polls.id = ?, ? = self.poll_id
+  after_destroy :log_destroy_action
+
+  def log_destroy_action
+    puts 'Question destroyed'
+  end
 
   def results
     #returns a hash where the key is the allowed_answer_id

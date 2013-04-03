@@ -14,6 +14,12 @@ class Response < ActiveRecord::Base
   # =>     FROM users
   # =>    WHERE user.id = self.respondent_id
 
+  after_destroy :log_destroy_action
+
+  def log_destroy_action
+    puts 'Reponse destroyed'
+  end
+
   def respondent_is_not_poll_creator
     if self.poll.creator_id == self.respondent_id
       errors[:respondent_id] << "can't be the poll creator"
