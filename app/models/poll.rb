@@ -1,4 +1,5 @@
 class Poll < ActiveRecord::Base
+  #REV: No 'title' column for your Poll table?
   attr_accessible :creator_id
 
   has_many :questions, :dependent => :destroy

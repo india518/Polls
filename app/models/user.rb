@@ -1,3 +1,6 @@
+#REV: Overall the associations look good guys, if you named your tables differently
+#REV: you may not have needed to state so many foreign_keys.
+
 class User < ActiveRecord::Base
   attr_accessible :name
 

@@ -20,6 +20,8 @@ class Response < ActiveRecord::Base
     puts 'Reponse destroyed'
   end
 
+  #REV: I think custom validation was supposed to be in a different file in ./app/validation folder.
+  #REV: Also, supposed to use ActiveModel::Validator? In our validations reading.
   def respondent_is_not_poll_creator
     if self.poll.creator_id == self.respondent_id
       errors[:respondent_id] << "can't be the poll creator"
