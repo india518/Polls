@@ -18,4 +18,15 @@ class Question < ActiveRecord::Base
   # =>     FROM polls
   # =>    WHERE polls.id = ?, ? = self.poll_id
 
+  def results
+    #returns a hash where the key is the allowed_answer_id
+    # and the value is the count.
+    self.responses
+      .select("responses.*, COUNT(*) AS answer_count")
+      .group("allowed_answer_id")
+      .map do |stuff|
+        {stuff.allowed_answer_id => stuff.answer_count}
+      end
+  end
+
 end
